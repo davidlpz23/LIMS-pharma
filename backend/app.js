@@ -4,6 +4,7 @@ const cors = require('cors');  // Importar cors
 const app = express();
 const authRoutes = require('./routes/authRoutes');
 const sampleRoutes = require('./routes/sampleRoutes');
+const reagentRoutes = require('./routes/reagentRoutes');
 const sequelize = require('./config/database');
 const PORT = process.env.PORT || 5000;
 
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 // Rutas de autenticación y de ejemplos.              
 app.use('/auth', authRoutes);
 app.use('/samples', sampleRoutes);
+app.use('/reagents', reagentRoutes);
 
 
 // Middleware para manejar errores.           
