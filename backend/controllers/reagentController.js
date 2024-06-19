@@ -1,5 +1,17 @@
-//importar el modelo de reagentes                            
+//importar el modelo de reactivos                                     
 const { Reagent } = require('../models');
+//importar el decorador de alertas para reactivos
+const ReagentAlertDecorator = require('../services/alertDecorator');
+
+
+//importar el servicio de reactivos 
+const ReagentService = require('../services/reagentService');
+//importar las estrategias de búsqueda      
+const { NameSearchStrategy, BatchNumberSearchStrategy } = require('../services/searchStrategies');
+//crear una instancia del servicio de reactivos     
+const reagentService = new ReagentService();
+
+// modelos de reactivos:    
 
 //funcion para registrar un reactivo en la base de datos.                                                                                                      
 exports.registerReagent = async (req, res) => {
@@ -49,6 +61,26 @@ exports.deleteReagent = async (req, res) => {
     }
     await reagent.destroy();
     res.status(204).json();
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
+// servicios de reactivos: 
+
+// Función para buscar reactivos por nombre o número de lote.
+exports.searchReagents = async (req, res) => {
+  try {
+    const { query, strategy } = req.query;
+    if (strategy === 'name') {
+      reagentService.setSearchStrategy(new NameSearchStrategy());
+    } else if (strategy === 'batchNumber') {
+      reagentService.setSearchStrategy(new BatchNumberSearchStrategy());
+    } else {
+      reagentService.setSearchStrategy(null);
+    }
+    const results = await reagentService.searchReagents(query);
+    res.status(200).json(results);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

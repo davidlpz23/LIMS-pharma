@@ -1,5 +1,6 @@
+//      Este controlador se encarga de manejar las peticiones relacionadas con la autenticación de usuarios       
 const { User } = require('../models');
-
+//      Función para registrar un usuario en la aplicación        
 exports.register = async (req, res) => {
   try {
     const { username, password, email } = req.body;
@@ -10,6 +11,7 @@ exports.register = async (req, res) => {
   }
 };
 
+//      Función para iniciar sesión en la aplicación            
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;

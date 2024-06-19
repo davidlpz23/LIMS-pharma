@@ -1,7 +1,7 @@
 // Propósito: Manejar las rutas de la API para los reactivos.
 const express = require('express');
 // Importar el controlador de reactivos.
-const { registerReagent, getReagents, updateReagent, deleteReagent } = require('../controllers/reagentController');
+const { registerReagent, getReagents, updateReagent, deleteReagent, searchReagents } = require('../controllers/reagentController');
 // Crear un router de express.
 const router = express.Router();
 
@@ -9,6 +9,7 @@ const router = express.Router();
 router.post('/register', registerReagent);
 router.get('/', getReagents);
 router.put('/:id', updateReagent);
-router.delete('/:id', deleteReagent);
+router.delete('/:id', deleteReagent);              
+router.get('/search', searchReagents);            
 
 module.exports = router;

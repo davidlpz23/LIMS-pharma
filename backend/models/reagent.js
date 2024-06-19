@@ -1,4 +1,7 @@
+// Propósito: Clase que se encarga de decorar un reactivo con una alerta de stock       
 'use strict';
+
+// Definición de la clase Reagent           
 const {
   Model
 } = require('sequelize');
@@ -13,6 +16,8 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
+
+  // Propósito: Clase que se encarga de decorar un reactivo con una alerta de stock       
   Reagent.init({
     name: DataTypes.STRING,
     batchNumber: DataTypes.STRING,
