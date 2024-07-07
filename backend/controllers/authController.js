@@ -1,26 +1,37 @@
-//      Este controlador se encarga de manejar las peticiones relacionadas con la autenticación de usuarios       
 const { User } = require('../models');
-//      Función para registrar un usuario en la aplicación        
+const { generateToken } = require('../utils/jwt');
+
 exports.register = async (req, res) => {
   try {
     const { username, password, email } = req.body;
     const user = await User.create({ username, password, email });
-    res.status(201).json(user);
+    const token = generateToken(user);
+    res.status(201).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-//      Función para iniciar sesión en la aplicación            
 exports.login = async (req, res) => {
   try {
     const { username, password } = req.body;
-    const user = await User.findOne({ where: { username, password } });
+    const user = await User.findOne({ where: { username } });
     if (!user) {
-      return res.status(401).json({ error: 'Authentication failed' });
+      return res.status(401).json({ error: 'Invalid credentials' });
     }
-    res.status(200).json(user);
+
+    const isValid = await user.comparePassword(password); // Use instance method
+    if (!isValid) {
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
+
+    const token = generateToken(user);
+    res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
+};
+
+exports.logout = (req, res) => {
+  res.status(200).json({ message: 'Logout successful' });
 };

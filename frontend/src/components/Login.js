@@ -1,28 +1,39 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+//        Importar el componente Link para navegar entre las páginas de la aplicación.
+import { Link, useNavigate } from 'react-router-dom';
+// importar el servicio de autenticación para realizar la autenticación de los usuarios.      
+import AuthService from '../services/AuthService';
 
+
+// Componente funcional para la página de inicio de sesión.     
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // inicializar el hook de navegación para redirigir a la página de registro de muestras después de iniciar sesión.    
 
+  // Función para manejar el envío del formulario de inicio de sesión.          
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/login`, {
-        username,
-        password,
-      });
-      console.log(response.data);
+      await AuthService.login(username, password);
+      navigate('/sample-register'); // Redirigir a la página de registro de muestras después de iniciar sesión.
     } catch (err) {
-      setError('Authentication failed');
+      setMessage('Usuario o contraseña incorrectos inténtelo de nuevo o Regístrese.');
+      console.error(err);
     }
   };
 
+
+  // Formulario de inicio de sesión con campos de entrada para el nombre de usuario y la contraseña.           
   return (
+    
+    // Contenedor principal de la página de inicio de sesión.
     <div className="container">
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
+
+        
         <div className="mb-3">
           <label className="form-label">Username</label>
           <input
@@ -30,8 +41,10 @@ const Login = () => {
             className="form-control"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
+          /> 
+          </div>
+          
+           
         <div className="mb-3">
           <label className="form-label">Password</label>
           <input
@@ -41,8 +54,15 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        {error && <div className="alert alert-danger">{error}</div>}
+        
+          
+        {message && <div className="alert alert-danger">{message}</div>}
         <button type="submit" className="btn btn-primary">Login</button>
+     
+        <div className="mt-3">
+          <span>Aún no tiene una cuenta? <Link to="/register">Registarse aquí</Link></span>
+        </div>
+     
       </form>
     </div>
   );

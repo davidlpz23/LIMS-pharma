@@ -1,25 +1,26 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch, Routes } from 'react-router-dom';
-import Login from './components/Login';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from  './components/Login';
 import Register from './components/Register';
 import SampleRegister from './components/SampleRegister';
 import ReagentRegister from './components/ReagentRegister';
 import ReagentList from './components/ReagentList'; 
 import Header from './components/Header';
 import Footer from './components/Footer';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
   return (
     
       <div className="App">
         <Header />
-        <Routes> 
-          <Route path="/" element={<Register />} /> // Cambia el componente por defecto a Login  
+        <Routes>
+          <Route path="/" element={<Navigate to="/login" />} /> {/* Redirige a Login por defecto */}
           <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />    
-          <Route path="/path_to_SampleRegister" element={<SampleRegister />} /> {/* Agrega la ruta al componente SampleRegister.jsx */}
-          <Route path="/path_to_ReagenstRegister" element={<ReagentRegister />} /> {/* Agrega la ruta al componente ReagentRegister.jsx */}
-          <Route path="/path_to_ReagentList" element={<ReagentList />} /> {/* Agrega la ruta al componente ReagentList.jsx */}
+          <Route path="/register" element={<Register />} />
+          <Route path="/sample-register" element={<PrivateRoute><SampleRegister /></PrivateRoute>} />    
+          <Route path="/reagent-register" element={<PrivateRoute><ReagentRegister /></PrivateRoute>} />
+          <Route path="/reagent-list" element={<PrivateRoute><ReagentList /></PrivateRoute>} /> 
         </Routes>
         <Footer />
       </div>

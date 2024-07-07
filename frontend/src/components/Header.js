@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import Logout from './Logout';
 
 const Header = () => {
     return (
@@ -13,9 +14,9 @@ const Header = () => {
                     </button>
 
                     {/* Logo de la aplicación */}
-                    <a className="navbar-brand" href="Login">
+                    <Link className="navbar-brand" to="/login">
                         <img src="https://th.bing.com/th/id/OIP.YQmd7DbSNttp6YpziG17HQHaDs?rs=1&pid=ImgDetMain" alt="Logo" width="30" height="30" className="d-inline-block align-top" /> {/* Asegúrate de reemplazar 'path_to_logo.png' con la ruta al logo real */}
-                    </a>
+                    </Link>
 
                     {/* Espaciador */}
                     <div className="navbar-nav ms-auto">
@@ -35,23 +36,20 @@ const Header = () => {
                     {/* Contenido del Offcanvas */}
                     <ul className="navbar-nav justify-content-end flex-grow-1 pe-3">
                         <li className="nav-item dropdown">
-                            <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="nav-link dropdown-toggle btn btn-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Inventario reactivos
-                            </a>
+                            </button>
                             <ul className="dropdown-menu" aria-labelledby="navbarDropdown">             
-                            <li><Link to="/path_to_ReagenstRegister">Registrar reactivos</Link></li> {/* Agrega el enlace al componente ReagentRegister.jsx */}
-                            <li><Link to="/path_to_ReagentList">Buscar reactivos, alertas y notificaciones</Link></li> {/* Agrega el enlace al componente ReagentList.jsx */}    
+                                <li><Link className="dropdown-item" to="/reagent-register">Registrar reactivos</Link></li> {/* Agrega el enlace al componente ReagentRegister */}
+                                <li><Link className="dropdown-item" to="/reagent-list">Listar reactivos</Link></li> {/* Agrega el enlace al componente ReagentList */}
                             </ul>
                         </li>   
                         <li className="nav-item">
-                            <Link to="/path_to_SampleRegister" className="nav-link">Registrar muestras</Link> {/* Agrega el enlace al componente SampleRegister.jsx */} 
+                            <Link className="nav-link" to="/sample-register">Registrar muestras</Link> {/* Agrega el enlace al componente SampleRegister */}    
                         </li>
-                                              
                         <li className="nav-item">
-                            <a className="nav-link" href="#">Cerrar Sesión</a>      
+                            <Logout />
                         </li>
-                      
-                        
                     </ul>
                 </div>
             </div>

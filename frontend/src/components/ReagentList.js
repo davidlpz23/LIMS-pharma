@@ -1,6 +1,5 @@
-// frontend/src/components/ReagentList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import api from '../services/api';  // Ensure the correct import
 
 const ReagentList = () => {
   const [reagents, setReagents] = useState([]);
@@ -10,7 +9,7 @@ const ReagentList = () => {
 
   const fetchReagents = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/reagents`);
+      const response = await api.get('/reagents');  // Use the api instance here
       setReagents(response.data);
     } catch (err) {
       setMessage('Failed to fetch reagents');
@@ -20,7 +19,7 @@ const ReagentList = () => {
 
   const searchReagents = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/reagents/search`, {
+      const response = await api.get('/reagents/search', {
         params: { query, strategy },
       });
       setReagents(response.data);
