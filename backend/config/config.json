@@ -18,10 +18,7 @@
 
   
   "production": {
-    "username": "postgres",
-    "password": "as98ya",
-    "database": "mydatabase",
-    "host": "localhost",
+    "use_env_variable": "DATABASE_URL",
     "dialect": "postgres"
   }
 }

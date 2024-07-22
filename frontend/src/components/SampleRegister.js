@@ -45,7 +45,7 @@ const SampleRegister = () => {
         setMessage('Sample updated successfully');
       } else {
         // Register new sample
-        response = await api.post('/samples', sample);
+        response = await api.post('/samples/register', sample);
         setSamples([...samples, response.data]);
         setMessage('Sample registered successfully');
       }
