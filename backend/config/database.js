@@ -1,11 +1,8 @@
-// Propósito: Configurar la conexión a la base de datos.
 const { Sequelize } = require('sequelize');
 
-// Verificar si la aplicación está en un entorno de producción (Heroku)
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Crear una instancia de Sequelize usando la URL de conexión de la base de datos
-const sequelize = isProduction 
+const sequelize = isProduction
   ? new Sequelize(process.env.DATABASE_URL, {
       dialect: 'postgres',
       protocol: 'postgres',
@@ -26,5 +23,7 @@ const sequelize = isProduction
       }
     );
 
-// Exportar la instancia de Sequelize.
 module.exports = sequelize;
+
+
+

@@ -5,9 +5,7 @@
     "database": "mydatabase",
     "host": "localhost",
     "dialect": "postgres"
-  }
-  ,
-
+  },
   "test": {
     "username": "postgres",
     "password": "as98ya",
@@ -15,10 +13,16 @@
     "host": "localhost",
     "dialect": "postgres"
   },
-
-  
   "production": {
     "use_env_variable": "DATABASE_URL",
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "dialectOptions": {
+      "ssl": {
+        "require": true,
+        "rejectUnauthorized": false
+      }
+    }
   }
 }
+
+
