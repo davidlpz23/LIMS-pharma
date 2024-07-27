@@ -9,5 +9,8 @@
   "scripts": {
     "start": "npm run start --prefix backend",
     "heroku-postbuild": "npm install --prefix backend && npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.6.2"
   }
 }
