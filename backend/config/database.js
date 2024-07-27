@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize');
 const isProduction = process.env.NODE_ENV === 'production';
 
 const sequelize = isProduction
-  ? new Sequelize(process.env.DATABASE_URL, {
+  ? new Sequelize(process.env.HEROKU_POSTGRESQL_AMBER_URL, {
       dialect: 'postgres',
       protocol: 'postgres',
       dialectOptions: {
